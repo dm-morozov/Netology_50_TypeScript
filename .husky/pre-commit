@@ -1,5 +1,8 @@
-echo "Running pre-commit hook"
-echo "Current directory: $(pwd)"
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "✅ Running pre-commit hook..."
+echo "📂 Current directory: $(pwd)"
 
 npm run lint
 npm run test
