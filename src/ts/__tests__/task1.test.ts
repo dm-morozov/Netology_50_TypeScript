@@ -10,7 +10,7 @@ describe("Product utilities", () => {
   test("getAvailableProducts возвращает только товары в наличии", () => {
     const result = getAvailableProducts(testProducts);
     expect(result).toHaveLength(2);
-    expect(result.every(p => p.inStock)).toBe(true);
+    expect(result.every((p) => p.inStock)).toBe(true);
   });
 
   test("getTotalPrice возвращает сумму всех цен", () => {

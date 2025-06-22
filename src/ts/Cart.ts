@@ -11,7 +11,7 @@ export default class Cart {
   private _products: CartItem[] = [];
 
   add(item: Buyable): void {
-    const existing = this._products.find(el => el.product.id === item.id);
+    const existing = this._products.find((el) => el.product.id === item.id);
 
     if (existing) {
       if (item.isCountable) {
@@ -20,7 +20,7 @@ export default class Cart {
         throw new Error("Товар уже есть, добавить второй нельзя");
       }
     } else {
-      this._products.push({product: item, quantity: 1});
+      this._products.push({ product: item, quantity: 1 });
     }
   }
 
@@ -29,31 +29,31 @@ export default class Cart {
   }
 
   getTotalPrice(): number {
-      let totalPrice: number = 0;
-  
-      if (this._products.length === 0) {
-          throw new Error("Список товаров пуст");
-      };
-  
-      for (const item of this._products) {
-          totalPrice += item.product.price * item.quantity;
-      }
-  
-      return totalPrice;
+    let totalPrice: number = 0;
+
+    if (this._products.length === 0) {
+      throw new Error("Список товаров пуст");
+    }
+
+    for (const item of this._products) {
+      totalPrice += item.product.price * item.quantity;
+    }
+
+    return totalPrice;
   }
 
   getTotalPriceWithDiscount(discount: number): number {
     const totalPrice = this.getTotalPrice();
-    const discountAmount = totalPrice * discount / 100;
+    const discountAmount = (totalPrice * discount) / 100;
     return totalPrice - discountAmount;
   }
 
   remove(id: number): void {
-    this._products = this._products.filter(item => item.product.id !== id);
+    this._products = this._products.filter((item) => item.product.id !== id);
   }
 
   decrease(id: number): void {
-    const existing = this._products.find(el => el.product.id === id);
+    const existing = this._products.find((el) => el.product.id === id);
 
     if (existing && existing.product.isCountable) {
       existing.quantity--;

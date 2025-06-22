@@ -4,6 +4,7 @@ import pluginJs from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
 import pluginImport from 'eslint-plugin-import'; // Импортируем плагин import
+import pluginPrettier from 'eslint-plugin-prettier';
 import globals from 'globals';
 
 export default [
@@ -12,11 +13,17 @@ export default [
     languageOptions: {
       parser,
       sourceType: 'module',
-      globals: globals.browser,
+      globals: {
+        ...globals.node,
+        ...globals.es2023,
+        ...globals.jest, // Добавляем Jest-глобали
+        ...globals.browser, // Добавляем браузерные глобали (window, document, и т.д.)
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint,
       import: pluginImport, // Добавляем плагин import
+      prettier: pluginPrettier, // добавили Prettier
     },
     settings: {
       'import/resolver': {
@@ -42,6 +49,8 @@ export default [
         },
       ],
       'import/no-unresolved': 'off', // Отключаем проверку на неразрешённые импорты
+      // активируем правила Prettier
+      'prettier/prettier': 'error',
     },
   },
 ];
